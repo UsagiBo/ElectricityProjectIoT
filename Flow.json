@@ -1,0 +1,94 @@
+[
+  {
+    "id": "3ef6d192.e7d6be",
+    "type": "tab",
+    "label": "Flow 2",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "b17543be.9f0fe",
+    "type": "ttn uplink",
+    "z": "3ef6d192.e7d6be",
+    "name": "ElectricityMeter",
+    "app": "45ccf5ac.56146c",
+    "dev_id": "adcproject",
+    "field": "",
+    "x": 4020,
+    "y": 4481,
+    "wires": [
+      [
+        "c78ca315.d4b75",
+        "95b4da0b.1154f8"
+      ]
+    ]
+  },
+  {
+    "id": "95b4da0b.1154f8",
+    "type": "debug",
+    "z": "3ef6d192.e7d6be",
+    "name": "Raw Message",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "x": 4180,
+    "y": 4540,
+    "wires": []
+  },
+  {
+    "id": "c78ca315.d4b75",
+    "type": "function",
+    "z": "3ef6d192.e7d6be",
+    "name": "Format before saving to file",
+    "func": "var h1 = msg.payload.toString();\nvar d = new Date().toISOString();\nvar data = h1+d;\nvar newmsg = { payload: data };\n\nreturn newmsg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 4240,
+    "y": 4400,
+    "wires": [
+      [
+        "7a93a402.4545fc",
+        "1904c242.a391ae"
+      ]
+    ]
+  },
+  {
+    "id": "7a93a402.4545fc",
+    "type": "debug",
+    "z": "3ef6d192.e7d6be",
+    "name": "Formatted message",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "x": 4500,
+    "y": 4460,
+    "wires": []
+  },
+  {
+    "id": "1904c242.a391ae",
+    "type": "file",
+    "z": "3ef6d192.e7d6be",
+    "name": "File DB",
+    "filename": "C:/ElecticityMeterDB.txt",
+    "appendNewline": true,
+    "createDir": false,
+    "overwriteFile": "false",
+    "x": 4550,
+    "y": 4400,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "45ccf5ac.56146c",
+    "type": "ttn app",
+    "z": "",
+    "appId": "electricityprojectiot",
+    "accessKey": "ttn-account-v2.2fVlqS5Y1AMtjGlYq9Ogk3Hht9CUzYY8x8JA9A5UYLg",
+    "discovery": "discovery.thethingsnetwork.org:1900"
+  }
+]
